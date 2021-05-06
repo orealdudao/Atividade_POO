@@ -63,15 +63,15 @@ public class GerenciarVeiculos {
         return s.toString();
     }
 
-//    public boolean remover(String placa) {
-//        for (int i = 0; i < this.tamanho; i++) {
-//            if (this.automotores[i].getPlaca().equals(placa)) {
-//                automotores.remove(i);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
+    public boolean remover(String placa) {
+        for (int i = 0; i < this.tamanho; i++) {
+            if (this.automotores[i].getPlaca().equals(placa)) {
+                automotores.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
 
     
     
