@@ -1,93 +1,97 @@
 package carManager;
 
+import java.util.ArrayList;
+
 public class GerenciarVeiculos {
 
-	//private ArrayList<Veiculo> carroA = new ArrayList<>();
-    private Veiculo[] automotores;
-    private int tamanho = 0;
+	// Criação do ArrayList de Veiculos
+	private ArrayList<Veiculo> automotores = new ArrayList<Veiculo>();
 
-    protected void aumentaCapacidade() {
-        if (this.tamanho == this.automotores.length) {
-            Veiculo[] autoMotoresNovos = new Veiculo[this.automotores.length * 2];
-            for (int i = 0; i < this.automotores.length; i++) {
-                autoMotoresNovos[i] = this.automotores[i];
-            }
-            this.automotores = autoMotoresNovos;
-        }
-    }
+	// métodos solicitados
+	public void adicionar(Veiculo carro) {
+		automotores.add(carro);
+		System.out.println("\n" + "\t            ****");
+		System.out.println("\t-- O veículo foi adicionado --\n");
+	}
+	
+	public boolean remover(String placa) {
 
-    public boolean adiciona(Veiculo automotor) {
-        this.aumentaCapacidade();
-        if (this.tamanho < this.automotores.length) {
-            this.automotores[this.tamanho] = automotor;
-            this.tamanho++;
-            return true;
-        }
-        return false;
-    }
-    
-    public double obterValorImposto(String placa){
-        for (int i = 0; i < this.tamanho; i++) {
-            if (this.automotores[i].getPlaca().equals(placa)) {
-                return i;
-            }
-        }
-        return -1;
-    }
+		// o status da remoção começa falso e apenas se altera se o veiculo for
+		// encontrado
+		boolean status = false;
 
-    public Veiculo buscarPorPlaca(String placa) {
+		for (int i = 0; i < automotores.size(); i++) {
+			Veiculo a = automotores.get(i);
 
-        for (int i = 0; i < this.tamanho; i++) {
-            if (this.automotores[i].getPlaca().equals(placa)) {
-                return automotores[i];
-            }
-        }
-        return null;
-    }
+			if (a.getPlaca().equals(placa)) {
+				automotores.remove(automotores.get(i));
+				status = true;
+			}
+		}
+		return status;
+	}
+	
+	public Veiculo buscarPorPlaca(String placa) {
 
-    public String listarVeiculos() {
-
-        StringBuilder s = new StringBuilder();
-        s.append("[");
-
-        for (int i = 0; i < this.tamanho - 1; i++) {
-            s.append(this.automotores[i]);
-            s.append(", ");
-        }
-
-        if (this.tamanho > 0) {
-            s.append(this.automotores[this.tamanho - 1]);
-        }
-
-        s.append("]");
-        return s.toString();
-    }
-
-    public boolean remover(String placa) {
-        for (int i = 0; i < this.tamanho; i++) {
-            if (this.automotores[i].getPlaca().equals(placa)) {
-                automotores.remove(i);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    
-    
-    
-    /*
-	public void remover(String placa) {
-        for (int i = 0; i < automotores.size(); i++) {
-            Veiculo automotores = automotores.get(i);
-            if (automotores.getPlaca().equalsIgnoreCase(placa)) {
-                automotores.remove(aluno);
-                System.out.println("Veiculo removido com sucesso");
-                return true;
-            }
-        }
-        System.out.println("Veiculo nao encontrado");
-        return false;
-    }
-     */
+		for (int i = 0; i < automotores.size(); i++) {
+			Veiculo a = automotores.get(i);
+			if (a.getPlaca().equals(placa)) {
+				return automotores.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public String listarVeiculos() {
+		String dados = "";
+		
+		for (int i = 0; i < automotores.size(); i++) {
+			Veiculo a = automotores.get(i);
+			dados = dados +"\nVeículo:" + (i+1) 
+					+ "\n-------------------------\n" 
+					+ "Modelo: " + a.getModelo() + "\n"
+					+ "Marca: " + a.getMarca() + "\n"
+					+ "Ano de Fabricação: " + a.getAnoFabricacao() + "\n"
+					+ "Valor de Mercado: " + a.getValorMercado() + "\n"
+					+ "Placa: " + a.getPlaca() + "\n"
+					+ "Combustivel: " + a.getTipoCombustivel() + "\n"
+					+ "-------------------------" + "\n" ;
+		}
+		
+		return dados;
+	}
+	
+	public double obterValorImposto(String placa) {
+		double imposto = -1;
+		
+		for (int i = 0; i < automotores.size(); i++) {
+			Veiculo a = automotores.get(i);
+			if (a.getPlaca().equals(placa)) {
+				imposto = a.calcularImposto();
+				return imposto;
+			}
+		}
+	return imposto;
+	}
+	
+	public String listarVeiculoPorCombustivel(String combustivel) {
+		String dados = "";
+		
+		for (int i = 0; i < automotores.size(); i++) {
+			Veiculo a = automotores.get(i);
+			if (a.getTipoCombustivel().equals(combustivel)) {
+				dados = dados +"\nVeículo:" + (i+1) 
+						+ "\n-------------------------\n" 
+						+ "Modelo: " + a.getModelo() + "\n"
+						+ "Marca: " + a.getMarca() + "\n"
+						+ "Ano de Fabricação: " + a.getAnoFabricacao() + "\n"
+						+ "Valor de Mercado: R$" + a.getValorMercado() + "\n"
+						+ "Placa: " + a.getPlaca() + "\n"
+						+ "Combustivel: " + a.getTipoCombustivel() + "\n";				
+			}
+		}
+		
+		return dados;
+		
+	}
 }

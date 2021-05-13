@@ -37,7 +37,7 @@ public class Veiculo {
         System.out.println("-------------------------");
         System.out.println("Modelo: " + this.getModelo());
         System.out.println("Marca: " + this.getMarca());
-        System.out.println("Ano de FabricaÃ§Ã£o: " + this.getAnoFabricacao());
+        System.out.println("Ano de Fabricação: " + this.getAnoFabricacao());
         System.out.println("Valor de Mercado: R$" + this.getValorMercado());
         System.out.println("Placa: " + this.getPlaca());
         System.out.println("Combustivel: " + this.getTipoCombustivel());
